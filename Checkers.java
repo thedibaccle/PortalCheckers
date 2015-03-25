@@ -844,6 +844,13 @@ public CheckersMove[] getLegalMoves(int player) {
                      	moves.addElement(new CheckersMove(row,col,warpJumpRow,warpJumpCol));
                  }
       
+          for (int row = 0; row < 8; row++)
+              for (int col = 0; col < 8; col++)
+                 if (board[row][col] == player || board[row][col] == playerKing)
+                 {
+                	 if(justWarp(player, row, col))
+                     	moves.addElement(new CheckersMove(row,col,warpRow,warpCol));
+                 }
           
       /* If no legal moves have been found, return null.  Otherwise, create
          an array just big enough to hold all the legal moves, copy the
@@ -895,6 +902,7 @@ public CheckersMove[] getLegalJumpsFrom(int player, int row, int col) {
          if(canJump(player, row, col, row, col+1, row, col+2))
         	 moves.addElement(new CheckersMove(row, col, row, col+2));
       }
+      
       if (moves.size() == 0)
          return null;
       else {
@@ -904,6 +912,96 @@ public CheckersMove[] getLegalJumpsFrom(int player, int row, int col) {
          return moveArray;
       }
    }  // end getLegalMovesFrom()
+ 
+   public boolean justWarp(int player, int r, int c)
+   {
+	   if(isWarp[r][c] == WARP[0])
+	   {
+		   if(r == 2 && c == 3)
+		   {
+			   	warpRow = 5;
+			   	warpCol = 4;
+		   }
+		   else
+			 {
+			   	warpRow = 2;
+				warpCol = 3;
+			 }
+		   return true;
+	   }
+	   if(isWarp[r][c] == WARP[1])
+	   {
+		   if(r == 2 && c == 4)
+			 {
+				 warpRow = 5;
+				 warpCol = 3;
+			 }
+			 else
+			 {
+				 warpRow = 2;
+				 warpCol = 4;
+			 }
+			 return true;
+		 }
+	   if(isWarp[r][c] == WARP[2])
+	   {
+		   if(r == 3 && c == 2)
+			 {
+				 warpRow = 4;
+				 warpCol = 5; 
+			 }
+			 else
+			 {
+				 warpRow = 3;
+				 warpCol = 2; 
+			 }
+			 return true;		 
+		 }
+	   if(isWarp[r][c] == WARP[3])
+	   {
+		   if(r == 3 && c == 5)
+			 {
+				 warpRow = 4;
+				 warpCol = 2; 
+			 }
+			 else
+			 {
+				 warpRow = 3; 
+				 warpCol = 5;
+			 }
+			 return true;
+		 }
+	   if(isWarp[r][c] == WARP[4])
+	   {
+		   if(r == 2 && c == 1)
+			 {
+				 warpRow = 6;
+				 warpCol = 5;
+			 }
+			 else
+			 {
+				 warpRow = 2;
+				 warpCol = 1;
+			 }
+		   return true;	   
+	   }
+	   if(isWarp[r][c] == WARP[5])
+	   {
+		   if(r == 2 && c == 6)
+			 {
+				 warpRow = 5;
+				 warpCol = 1;
+			 }
+			 else
+			 {
+				 warpRow = 2;
+				 warpCol = 6;
+			 }
+		   return true;
+	   }
+	   
+	   return false;
+   }
    
    public boolean canWarp(int player, int r1, int c1, int r2, int c2)
    {
